@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question / discussion
+    url: https://github.com/mkk2026/agentreg/discussions
+    about: Ask a question, share how you're using it, or float a half-formed idea.
+  - name: Security vulnerability
+    url: https://github.com/mkk2026/agentreg/security/advisories/new
+    about: Report a security issue privately (not a public issue).
