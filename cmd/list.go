@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 	"text/tabwriter"
 	"time"
@@ -31,13 +32,14 @@ var listCmd = &cobra.Command{
 			return nil
 		}
 		tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
-		fmt.Fprintln(tw, "NAME\tCAPABILITIES\tSTATUS\tSOURCE\tLAST HEARTBEAT\tENDPOINT")
+		fmt.Fprintln(tw, "NAME\tCAPABILITIES\tSTATUS\tSOURCE\tLABELS\tLAST HEARTBEAT\tENDPOINT")
 		for _, a := range agents {
-			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\t%s\n",
+			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
 				a.Name,
 				strings.Join(a.Capabilities, ","),
 				a.Status,
 				a.Source,
+				formatLabels(a.Labels),
 				humanizeTime(a.LastHeartbeat),
 				a.Endpoint,
 			)
@@ -50,6 +52,23 @@ func printJSON(v any) error {
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", "  ")
 	return enc.Encode(v)
+}
+
+// formatLabels renders a labels map as sorted key=value pairs, or "-" if empty.
+func formatLabels(m map[string]string) string {
+	if len(m) == 0 {
+		return "-"
+	}
+	keys := make([]string, 0, len(m))
+	for k := range m {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	parts := make([]string, 0, len(keys))
+	for _, k := range keys {
+		parts = append(parts, k+"="+m[k])
+	}
+	return strings.Join(parts, ",")
 }
 
 func humanizeTime(t time.Time) string {

@@ -30,13 +30,17 @@ const SourceLocal = "local"
 
 // Agent is a registered agent / MCP server.
 type Agent struct {
-	Name          string    `json:"name"`
-	Capabilities  []string  `json:"capabilities"`
-	Endpoint      string    `json:"endpoint"`
-	Source        string    `json:"source"`
-	Status        Status    `json:"status"`
-	LastHeartbeat time.Time `json:"last_heartbeat"`
-	RegisteredAt  time.Time `json:"registered_at"`
+	Name         string   `json:"name"`
+	Capabilities []string `json:"capabilities"`
+	Endpoint     string   `json:"endpoint"`
+	Source       string   `json:"source"`
+	// Labels is optional operator-supplied metadata (e.g. env=prod,
+	// team=platform, version=1.4.2). Normalized to a non-nil map when stored,
+	// so it always serializes as {} rather than null.
+	Labels        map[string]string `json:"labels"`
+	Status        Status            `json:"status"`
+	LastHeartbeat time.Time         `json:"last_heartbeat"`
+	RegisteredAt  time.Time         `json:"registered_at"`
 }
 
 // HasCapability reports whether the agent advertises the given capability.

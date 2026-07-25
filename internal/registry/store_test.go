@@ -109,6 +109,46 @@ func TestPersistenceRoundTrip(t *testing.T) {
 	}
 }
 
+func TestLabelsNormalizeAndRoundTrip(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "reg.json")
+	s1, err := NewMemoryStore(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	// with labels
+	_ = s1.Register(agent.Agent{
+		Name: "a", Endpoint: "http://a",
+		Labels: map[string]string{"env": "prod", "team": "platform"},
+	})
+	// without labels -> must normalize to non-nil empty map
+	_ = s1.Register(agent.Agent{Name: "b", Endpoint: "http://b"})
+	if b, _ := s1.Get("b"); b.Labels == nil {
+		t.Error("empty Labels should normalize to a non-nil map, got nil")
+	}
+
+	// labels survive a status update
+	_ = s1.UpdateStatus("a", agent.StatusHealthy, time.Now().UTC())
+	if a, _ := s1.Get("a"); a.Labels["env"] != "prod" {
+		t.Errorf("UpdateStatus dropped labels: %+v", a.Labels)
+	}
+
+	// labels survive reload from disk (JSON persistence)
+	s2, err := NewMemoryStore(path)
+	if err != nil {
+		t.Fatalf("reopen: %v", err)
+	}
+	a, err := s2.Get("a")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if a.Labels["env"] != "prod" || a.Labels["team"] != "platform" {
+		t.Errorf("labels did not round-trip through persistence: %+v", a.Labels)
+	}
+	if b, _ := s2.Get("b"); b.Labels == nil {
+		t.Error("reloaded record with no labels should have non-nil map")
+	}
+}
+
 func TestRemove(t *testing.T) {
 	s, _ := NewMemoryStore("")
 	_ = s.Register(agent.Agent{Name: "a", Endpoint: "http://a"})

@@ -106,6 +106,15 @@ Two design seams make the roadmap additive instead of a rewrite:
   require a migration.
 - **`Verifier` interface** — v1 ships a health probe; ANS-identity,
   prompt-injection, and `tools/list` verifiers plug into the same seam.
+- **`labels`** — optional operator metadata (`env`, `team`, `version`, …) that
+  rides along on every record and shows up in `list`. Set it via the API today:
+
+  ```bash
+  curl -X POST http://localhost:8080/agents -H 'Content-Type: application/json' \
+    -d '{"name":"corebrim-search","capabilities":["search"],
+         "endpoint":"http://10.0.0.12:3000",
+         "labels":{"env":"prod","team":"platform","version":"1.4.2"}}'
+  ```
 
 ## agentreg vs. the alternatives
 

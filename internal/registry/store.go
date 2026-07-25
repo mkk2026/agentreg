@@ -63,6 +63,9 @@ func (s *MemoryStore) load() error {
 		return err
 	}
 	for _, a := range list {
+		if a.Labels == nil {
+			a.Labels = map[string]string{} // normalize records written before labels existed
+		}
 		s.agents[a.Name] = a
 	}
 	return nil
@@ -120,6 +123,9 @@ func (s *MemoryStore) Register(a agent.Agent) error {
 	}
 	if a.Status == "" {
 		a.Status = agent.StatusUnknown
+	}
+	if a.Labels == nil {
+		a.Labels = map[string]string{}
 	}
 	if existing, ok := s.agents[a.Name]; ok && !existing.RegisteredAt.IsZero() {
 		a.RegisteredAt = existing.RegisteredAt

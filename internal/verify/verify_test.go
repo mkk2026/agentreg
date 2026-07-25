@@ -16,7 +16,7 @@ func TestHealthVerifierHealthy(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	res, err := NewHealthVerifier(2 * time.Second).Verify(context.Background(),
+	res, err := NewHealthVerifier(2*time.Second).Verify(context.Background(),
 		agent.Agent{Name: "a", Endpoint: srv.URL})
 	if err != nil {
 		t.Fatal(err)
@@ -32,7 +32,7 @@ func TestHealthVerifierUnhealthyStatus(t *testing.T) {
 	}))
 	defer srv.Close()
 
-	res, err := NewHealthVerifier(2 * time.Second).Verify(context.Background(),
+	res, err := NewHealthVerifier(2*time.Second).Verify(context.Background(),
 		agent.Agent{Name: "a", Endpoint: srv.URL})
 	if err != nil {
 		t.Fatal(err)
