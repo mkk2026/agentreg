@@ -2,3 +2,4 @@
 /agentreg
 *.tmp
 .agentreg/
+/dist/
