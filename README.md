@@ -7,6 +7,7 @@
 
 <p align="center">
   <a href="https://github.com/mkk2026/agentreg/releases"><img src="https://img.shields.io/github/v/release/mkk2026/agentreg?color=00ADD8&label=release" alt="Release"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/mkk2026/agentreg?color=00ADD8" alt="License"></a>
   <img src="https://img.shields.io/github/go-mod/go-version/mkk2026/agentreg?color=00ADD8" alt="Go version">
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey" alt="Platforms">
   <img src="https://img.shields.io/badge/status-alpha-orange" alt="Status">
@@ -170,7 +171,7 @@ go build -o agentctl .
 
 ## License
 
-_To be finalized._ Until a license file is added, all rights are reserved.
+[MIT](LICENSE) © Core Brim Tech
 
 ---
 
