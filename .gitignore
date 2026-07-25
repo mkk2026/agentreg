@@ -1,0 +1,4 @@
+/agentctl
+/agentreg
+*.tmp
+.agentreg/
