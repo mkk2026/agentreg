@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
-	"github.com/corebrim/agentreg/internal/registry"
-	"github.com/corebrim/agentreg/internal/verify"
+	"github.com/mkk2026/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/registry"
+	"github.com/mkk2026/agentreg/internal/verify"
 )
 
 // Server wires the store, verifier, and HTTP handlers together.

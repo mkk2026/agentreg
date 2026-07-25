@@ -1,4 +1,4 @@
-module github.com/corebrim/agentreg
+module github.com/mkk2026/agentreg
 
 go 1.26
 

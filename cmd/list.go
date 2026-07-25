@@ -9,7 +9,7 @@ import (
 	"text/tabwriter"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/client"
+	"github.com/mkk2026/agentreg/internal/client"
 	"github.com/spf13/cobra"
 )
 

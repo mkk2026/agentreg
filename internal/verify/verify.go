@@ -13,7 +13,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/agent"
 )
 
 // VerificationResult is the outcome of a single verification pass.

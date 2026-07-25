@@ -11,9 +11,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
-	"github.com/corebrim/agentreg/internal/registry"
-	"github.com/corebrim/agentreg/internal/verify"
+	"github.com/mkk2026/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/registry"
+	"github.com/mkk2026/agentreg/internal/verify"
 )
 
 // stubVerifier returns a fixed health result without any network I/O.

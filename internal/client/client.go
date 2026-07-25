@@ -11,7 +11,7 @@ import (
 	"net/url"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/agent"
 )
 
 // Client talks to a running agentreg daemon.

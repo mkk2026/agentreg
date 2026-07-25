@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/agent"
 )
 
 // ErrNotFound is returned when an agent name is not registered.

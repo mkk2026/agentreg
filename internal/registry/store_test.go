@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/agent"
+	"github.com/mkk2026/agentreg/internal/agent"
 )
 
 func TestRegisterDefaultsAndGet(t *testing.T) {

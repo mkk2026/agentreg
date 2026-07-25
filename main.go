@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/corebrim/agentreg/cmd"
+	"github.com/mkk2026/agentreg/cmd"
 )
 
 func main() {

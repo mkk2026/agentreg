@@ -11,9 +11,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/corebrim/agentreg/internal/registry"
-	"github.com/corebrim/agentreg/internal/server"
-	"github.com/corebrim/agentreg/internal/verify"
+	"github.com/mkk2026/agentreg/internal/registry"
+	"github.com/mkk2026/agentreg/internal/server"
+	"github.com/mkk2026/agentreg/internal/verify"
 	"github.com/spf13/cobra"
 )
 

@@ -8,14 +8,24 @@ register themselves and discover each other by capability, with health built in.
 
 No cloud dependency. No account. One binary, 30-second setup.
 
+## Install
+
+```bash
+# Homebrew (macOS / Linux)
+brew install mkk2026/tap/agentreg
+
+# or grab a binary from the latest GitHub release
+#   https://github.com/mkk2026/agentreg/releases
+
+# or from source (produces a binary named 'agentreg')
+go install github.com/mkk2026/agentreg@latest
+```
+
 ## Quickstart
 
 ```bash
-# build
-go build -o agentctl .
-
 # run the registry daemon
-./agentctl serve --port 8080 &
+agentctl serve --port 8080 &
 
 # register your agents
 ./agentctl register search-agent -c search      -e http://localhost:3000
