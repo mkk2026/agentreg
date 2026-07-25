@@ -1,4 +1,6 @@
-<h1 align="center">agentreg</h1>
+<p align="center">
+  <img src=".github/assets/banner.png" alt="agentreg — DNS for AI agents" width="840">
+</p>
 
 <p align="center">
   <b>DNS for AI agents.</b><br>

@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:630px; }
+  body {
+    font-family:'DejaVu Sans', sans-serif;
+    background:
+      radial-gradient(1100px 640px at 80% 12%, rgba(0,173,216,.20), transparent 58%),
+      linear-gradient(135deg,#090d15 0%, #0c1524 55%, #0a1a27 100%);
+    color:#e6edf3; position:relative; overflow:hidden;
+  }
+  .grid { position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(ellipse at 46% 42%, #000 30%, transparent 82%); }
+  .glow { position:absolute; width:520px; height:520px; right:-80px; top:-120px;
+    background:radial-gradient(circle, rgba(0,173,216,.35), transparent 62%); filter:blur(8px); }
+  .wrap { position:relative; padding:66px 74px; height:100%; display:flex; flex-direction:column; }
+  .top { display:flex; align-items:center; gap:20px; }
+  .mark { width:66px; height:66px; }
+  .word { font-size:42px; font-weight:700; letter-spacing:-1.2px; }
+  .word .r { color:#00ADD8; }
+  .headline { margin-top:46px; font-size:82px; font-weight:700; line-height:1; letter-spacing:-2.5px; }
+  .headline .accent { color:#00ADD8; }
+  .sub { margin-top:26px; font-size:28px; color:#9fb2c2; max-width:840px; line-height:1.4; }
+  .term { margin-top:36px; background:#0b111b; border:1px solid #1e2a3a; border-radius:14px;
+    padding:20px 24px; font-family:'DejaVu Sans Mono', monospace; font-size:21px; width:660px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .term .p { color:#00ADD8; }
+  .term .row { color:#7d8fa0; margin-top:10px; font-size:19px; }
+  .term .ok { color:#3fb950; }
+  .foot { margin-top:auto; display:flex; align-items:center; justify-content:space-between; }
+  .repo { font-family:'DejaVu Sans Mono', monospace; font-size:23px; color:#c9d6e2; }
+  .chips { display:flex; gap:11px; }
+  .chip { font-size:17px; color:#9fb2c2; border:1px solid #22303f; border-radius:999px; padding:8px 16px; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="top">
+      <svg class="mark" viewBox="0 0 100 100" fill="none">
+        <g stroke="#2f6b78" stroke-width="2.4">
+          <line x1="50" y1="50" x2="20" y2="23"/>
+          <line x1="50" y1="50" x2="83" y2="27"/>
+          <line x1="50" y1="50" x2="23" y2="81"/>
+          <line x1="50" y1="50" x2="80" y2="77"/>
+        </g>
+        <circle cx="50" cy="50" r="12" fill="#00ADD8"/>
+        <circle cx="50" cy="50" r="12" fill="none" stroke="#8fe8f7" stroke-width="2.2"/>
+        <circle cx="20" cy="23" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+        <circle cx="83" cy="27" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+        <circle cx="23" cy="81" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+        <circle cx="80" cy="77" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+        <circle cx="20" cy="23" r="2.6" fill="#3fb950"/>
+        <circle cx="83" cy="27" r="2.6" fill="#3fb950"/>
+        <circle cx="23" cy="81" r="2.6" fill="#f85149"/>
+        <circle cx="80" cy="77" r="2.6" fill="#3fb950"/>
+      </svg>
+      <div class="word">agent<span class="r">reg</span></div>
+    </div>
+
+    <div class="headline">DNS for <span class="accent">AI&nbsp;agents</span></div>
+    <div class="sub">Register, discover, and health-check your MCP agents. One self-hosted Go binary.</div>
+
+    <div class="term">
+      <div><span class="p">$</span> agentctl find search</div>
+      <div class="row">search-agent&nbsp;&nbsp;&nbsp;<span class="ok">healthy</span>&nbsp;&nbsp;&nbsp;http://localhost:3000</div>
+    </div>
+
+    <div class="foot">
+      <div class="repo">github.com/mkk2026/agentreg</div>
+      <div class="chips">
+        <span class="chip">self-hosted</span>
+        <span class="chip">single binary</span>
+        <span class="chip">MIT</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { width:1200px; height:360px; }
+  body {
+    font-family:'DejaVu Sans', sans-serif;
+    background:
+      radial-gradient(900px 520px at 88% 20%, rgba(0,173,216,.20), transparent 60%),
+      linear-gradient(135deg,#090d15 0%, #0c1524 60%, #0a1a27 100%);
+    color:#e6edf3; position:relative; overflow:hidden;
+  }
+  .grid { position:absolute; inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+    background-size:40px 40px;
+    -webkit-mask-image:radial-gradient(ellipse at 40% 50%, #000 34%, transparent 84%); }
+  .wrap { position:relative; height:100%; padding:0 66px; display:flex; align-items:center; justify-content:space-between; gap:48px; }
+  .left { max-width:640px; }
+  .top { display:flex; align-items:center; gap:16px; }
+  .mark { width:54px; height:54px; }
+  .word { font-size:36px; font-weight:700; letter-spacing:-1px; }
+  .word .r { color:#00ADD8; }
+  .headline { margin-top:22px; font-size:52px; font-weight:700; line-height:1.02; letter-spacing:-1.6px; }
+  .headline .accent { color:#00ADD8; }
+  .sub { margin-top:16px; font-size:21px; color:#9fb2c2; line-height:1.4; }
+  .install { margin-top:22px; display:inline-block; background:#0b111b; border:1px solid #1e2a3a;
+    border-radius:10px; padding:12px 18px; font-family:'DejaVu Sans Mono', monospace; font-size:18px; color:#c9d6e2; }
+  .install .p { color:#00ADD8; }
+  .term { background:#0b111b; border:1px solid #1e2a3a; border-radius:14px; padding:20px 22px;
+    font-family:'DejaVu Sans Mono', monospace; font-size:17px; width:420px;
+    box-shadow:0 24px 60px rgba(0,0,0,.45); }
+  .term .p { color:#00ADD8; }
+  .term .row { color:#7d8fa0; margin-top:9px; }
+  .term .ok { color:#3fb950; }
+  .term .bad { color:#f85149; }
+</style>
+</head>
+<body>
+  <div class="grid"></div>
+  <div class="wrap">
+    <div class="left">
+      <div class="top">
+        <svg class="mark" viewBox="0 0 100 100" fill="none">
+          <g stroke="#2f6b78" stroke-width="2.4">
+            <line x1="50" y1="50" x2="20" y2="23"/>
+            <line x1="50" y1="50" x2="83" y2="27"/>
+            <line x1="50" y1="50" x2="23" y2="81"/>
+            <line x1="50" y1="50" x2="80" y2="77"/>
+          </g>
+          <circle cx="50" cy="50" r="12" fill="#00ADD8"/>
+          <circle cx="50" cy="50" r="12" fill="none" stroke="#8fe8f7" stroke-width="2.2"/>
+          <circle cx="20" cy="23" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+          <circle cx="83" cy="27" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+          <circle cx="23" cy="81" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+          <circle cx="80" cy="77" r="6.5" fill="#0d2b33" stroke="#00ADD8" stroke-width="2.2"/>
+          <circle cx="20" cy="23" r="2.6" fill="#3fb950"/>
+          <circle cx="83" cy="27" r="2.6" fill="#3fb950"/>
+          <circle cx="23" cy="81" r="2.6" fill="#f85149"/>
+          <circle cx="80" cy="77" r="2.6" fill="#3fb950"/>
+        </svg>
+        <div class="word">agent<span class="r">reg</span></div>
+      </div>
+      <div class="headline">DNS for <span class="accent">AI&nbsp;agents</span></div>
+      <div class="sub">Discover agents by capability. Health built in. Self-hosted, one Go binary.</div>
+      <div class="install"><span class="p">$</span> brew install mkk2026/tap/agentreg</div>
+    </div>
+
+    <div class="term">
+      <div><span class="p">$</span> agentctl list</div>
+      <div class="row">search-agent&nbsp;&nbsp;<span class="ok">healthy</span></div>
+      <div class="row">db-agent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="bad">unhealthy</span></div>
+      <div class="row">product-api&nbsp;&nbsp;&nbsp;<span class="ok">healthy</span></div>
+    </div>
+  </div>
+</body>
+</html>
