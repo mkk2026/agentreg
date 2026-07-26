@@ -14,6 +14,7 @@
   <img src="https://img.shields.io/badge/platform-macOS%20%7C%20Linux-lightgrey" alt="Platforms">
   <img src="https://img.shields.io/badge/status-alpha-orange" alt="Status">
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen" alt="PRs welcome">
+  <a href="https://codeguilds.dev/packages/agentreg"><img src="https://codeguilds.dev/badge/agentreg" alt="Listed on CodeGuilds"></a>
 </p>
 
 ---
