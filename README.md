@@ -17,6 +17,10 @@
   <a href="https://codeguilds.dev/packages/agentreg"><img src="https://codeguilds.dev/badge/agentreg" alt="Listed on CodeGuilds"></a>
 </p>
 
+<p align="center">
+  <img src=".github/assets/demo.gif" alt="agentreg in action: register an agent, discover it by capability, and watch the health check flip it when it goes down" width="820">
+</p>
+
 ---
 
 Everyone is building AI agents. Nobody is building the layer that lets agents
