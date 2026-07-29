@@ -5,14 +5,21 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"net/url"
+	"syscall"
 	"time"
 
 	"github.com/mkk2026/agentreg/internal/agent"
 )
+
+// startupGrace is how long the client keeps retrying a "connection refused"
+// error, so a command run immediately after `agentctl serve &` succeeds instead
+// of racing the daemon's startup.
+const startupGrace = 3 * time.Second
 
 // Client talks to a running agentreg daemon.
 type Client struct {
@@ -71,7 +78,7 @@ func (c *Client) Find(ctx context.Context, capability string) ([]agent.Agent, er
 }
 
 func (c *Client) do(req *http.Request, out any) error {
-	resp, err := c.http.Do(req)
+	resp, err := c.doWithRetry(req)
 	if err != nil {
 		return fmt.Errorf("cannot reach registry at %s: %w", c.baseURL, err)
 	}
@@ -91,4 +98,30 @@ func (c *Client) do(req *http.Request, out any) error {
 		return nil
 	}
 	return json.NewDecoder(resp.Body).Decode(out)
+}
+
+// doWithRetry retries only on "connection refused" (the daemon isn't up yet),
+// for up to startupGrace, so a command run right after `agentctl serve &` waits
+// for the daemon instead of failing the race. Any other error returns
+// immediately. Request bodies are rewound via GetBody between attempts.
+func (c *Client) doWithRetry(req *http.Request) (*http.Response, error) {
+	deadline := time.Now().Add(startupGrace)
+	for attempt := 0; ; attempt++ {
+		if attempt > 0 && req.GetBody != nil {
+			body, err := req.GetBody()
+			if err != nil {
+				return nil, err
+			}
+			req.Body = body
+		}
+		resp, err := c.http.Do(req)
+		if err == nil {
+			return resp, nil
+		}
+		if errors.Is(err, syscall.ECONNREFUSED) && time.Now().Before(deadline) {
+			time.Sleep(150 * time.Millisecond)
+			continue
+		}
+		return nil, err
+	}
 }

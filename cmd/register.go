@@ -33,8 +33,12 @@ var registerCmd = &cobra.Command{
 		if err != nil {
 			return err
 		}
-		fmt.Printf("registered %s [%s] -> %s\n",
-			stored.Name, strings.Join(stored.Capabilities, ","), stored.Endpoint)
+		fmt.Printf("%s registered %s %s → %s\n",
+			paint("✓", ansiGreen),
+			paint(stored.Name, ansiBold),
+			paint("["+strings.Join(stored.Capabilities, ",")+"]", ansiDim),
+			stored.Endpoint,
+		)
 		return nil
 	},
 }

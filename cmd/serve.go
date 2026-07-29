@@ -49,6 +49,8 @@ var serveCmd = &cobra.Command{
 			_ = httpServer.Shutdown(shutdownCtx)
 		}()
 
+		loaded, _ := store.List()
+		printServeBanner(servePort, len(loaded), serveInterval)
 		logger.Printf("listening on :%d (store=%q, heartbeat=%s)", servePort, serveStore, serveInterval)
 		if err := httpServer.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			return err
@@ -56,6 +58,16 @@ var serveCmd = &cobra.Command{
 		logger.Print("shut down cleanly")
 		return nil
 	},
+}
+
+func printServeBanner(port, agents int, interval time.Duration) {
+	fmt.Printf("%s %s\n",
+		paint("agentreg", ansiBold+ansiCyan),
+		paint("· DNS for AI agents", ansiDim))
+	fmt.Printf("%s http://localhost:%d  %s\n",
+		paint("→", ansiGreen),
+		port,
+		paint(fmt.Sprintf("%d agent%s loaded · heartbeat %s", agents, plural(agents), interval), ansiDim))
 }
 
 func defaultStorePath() string {

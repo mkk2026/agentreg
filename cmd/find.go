@@ -23,11 +23,21 @@ var findCmd = &cobra.Command{
 			return printJSON(agents)
 		}
 		if len(agents) == 0 {
-			fmt.Printf("no agents provide capability %q\n", args[0])
+			fmt.Println(paint(fmt.Sprintf("no agents provide capability %q", args[0]), ansiDim))
 			return nil
 		}
+		nameW := 0
 		for _, a := range agents {
-			fmt.Printf("%s\t%s\t%s\n", a.Name, a.Status, a.Endpoint)
+			if len(a.Name) > nameW {
+				nameW = len(a.Name)
+			}
+		}
+		for _, a := range agents {
+			fmt.Printf("%s  %s  %s\n",
+				paint(pad(a.Name, nameW), ansiBold),
+				paint(pad(string(a.Status), 9), statusCode(string(a.Status))),
+				paint(a.Endpoint, ansiDim),
+			)
 		}
 		return nil
 	},

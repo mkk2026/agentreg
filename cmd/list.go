@@ -7,7 +7,6 @@ import (
 	"os"
 	"sort"
 	"strings"
-	"text/tabwriter"
 	"time"
 
 	"github.com/mkk2026/agentreg/internal/client"
@@ -28,24 +27,79 @@ var listCmd = &cobra.Command{
 			return printJSON(agents)
 		}
 		if len(agents) == 0 {
-			fmt.Println("no agents registered")
+			fmt.Println(paint("no agents registered", ansiDim))
 			return nil
 		}
-		tw := tabwriter.NewWriter(os.Stdout, 0, 2, 2, ' ', 0)
-		fmt.Fprintln(tw, "NAME\tCAPABILITIES\tSTATUS\tSOURCE\tLABELS\tLAST HEARTBEAT\tENDPOINT")
-		for _, a := range agents {
-			fmt.Fprintf(tw, "%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+
+		headers := []string{"NAME", "CAPABILITIES", "STATUS", "SOURCE", "LABELS", "LAST HEARTBEAT", "ENDPOINT"}
+		const statusCol = 2
+
+		rows := make([][]string, len(agents))
+		var healthy, unhealthy int
+		for i, a := range agents {
+			st := string(a.Status)
+			switch st {
+			case "healthy":
+				healthy++
+			case "unhealthy":
+				unhealthy++
+			}
+			rows[i] = []string{
 				a.Name,
 				strings.Join(a.Capabilities, ","),
-				a.Status,
+				st,
 				a.Source,
 				formatLabels(a.Labels),
 				humanizeTime(a.LastHeartbeat),
 				a.Endpoint,
-			)
+			}
 		}
-		return tw.Flush()
+
+		widths := make([]int, len(headers))
+		for i, h := range headers {
+			widths[i] = len(h)
+		}
+		for _, r := range rows {
+			for i, c := range r {
+				if len(c) > widths[i] {
+					widths[i] = len(c)
+				}
+			}
+		}
+
+		fmt.Println(paint(joinCells(headers, widths, -1, ""), ansiBold))
+		for _, r := range rows {
+			fmt.Println(joinCells(r, widths, statusCol, statusCode(r[statusCol])))
+		}
+
+		summary := []string{paint(fmt.Sprintf("%d agent%s", len(agents), plural(len(agents))), ansiDim)}
+		if healthy > 0 {
+			summary = append(summary, paint(fmt.Sprintf("%d healthy", healthy), ansiGreen))
+		}
+		if unhealthy > 0 {
+			summary = append(summary, paint(fmt.Sprintf("%d unhealthy", unhealthy), ansiRed))
+		}
+		fmt.Println(strings.Join(summary, paint(" · ", ansiDim)))
+		return nil
 	},
+}
+
+// joinCells pads each cell to its column width and joins with two spaces.
+// If colorCol >= 0, that cell is wrapped in colorCode (padding happens first,
+// so alignment is preserved regardless of the escape codes).
+func joinCells(cells []string, widths []int, colorCol int, colorCode string) string {
+	var b strings.Builder
+	for i, c := range cells {
+		cell := pad(c, widths[i])
+		if i == colorCol {
+			cell = paint(cell, colorCode)
+		}
+		b.WriteString(cell)
+		if i < len(cells)-1 {
+			b.WriteString("  ")
+		}
+	}
+	return b.String()
 }
 
 func printJSON(v any) error {
